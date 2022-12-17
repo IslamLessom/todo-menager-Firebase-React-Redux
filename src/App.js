@@ -1,24 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+
+
+import { AntLayout, AntHeader, AntContent, AntSider, AppContent } from "./App.element";
+import { GlobalStyle } from "./GlobalStyled";
+
+
+//components
+import Menage from './Pages/Menage'
+import Director from './Pages/Director'
+import Accountant from './Pages/Accountant'
+import Consultant from './Pages/Consultant'
+import Content from "./Components/Contents";
+import Sider from "./Components/Sider/Sider";
+import Navbar from "./Components/Navbar";
+
+//firebase
+import { signOut } from "firebase/auth"
+import { signInWithPopup } from 'firebase/auth'
+import { provider } from "./Fairbase";
+import { auth } from "./Fairbase";
 
 function App() {
+
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
+
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear()
+      setIsAuth(false)
+    })
+  }
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      { console.log(result) }
+      localStorage.setItem("isAuth", true)
+      setIsAuth(true)
+    })
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <AppContent>
+          <GlobalStyle />
+          <AntLayout>
+            <AntSider>
+              <Sider isAuth={isAuth} signUserOut={signUserOut} signInWithGoogle={signInWithGoogle} />
+            </AntSider>
+            <AntLayout>
+              <AntHeader>
+                <Navbar />
+              </AntHeader>
+              <AntContent>
+                <Routes>
+                  <Route path='/menage' element={<Menage />} />
+                  <Route path='/accountant' element={<Accountant />} />
+                  <Route path='/consultant' element={<Consultant />} />
+                  <Route path='/director' element={<Director />} />
+                </Routes>
+              </AntContent>
+            </AntLayout>
+          </AntLayout>
+        </AppContent>
+      </Router>
+    </>
   );
 }
 

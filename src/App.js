@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 
@@ -34,7 +34,6 @@ function App() {
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
-      { console.log(result) }
       localStorage.setItem("isAuth", true)
       setIsAuth(true)
     })
@@ -54,7 +53,7 @@ function App() {
               </AntHeader>
               <AntContent>
                 <Routes>
-                  <Route path='/menage' element={<Menage />} />
+                  <Route path='/menage' element={<Menage isAuth={isAuth} />} />
                   <Route path='/accountant' element={<Accountant />} />
                   <Route path='/consultant' element={<Consultant />} />
                   <Route path='/director' element={<Director />} />

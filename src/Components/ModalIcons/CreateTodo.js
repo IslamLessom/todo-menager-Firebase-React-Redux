@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
-import { Modal } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { Modal } from 'antd';
+//firebase
+import { addDoc, collection, getDocs } from 'firebase/firestore'
+import { auth, db } from "../../Fairbase"
+//firebase
 import {
     ButtonCreate,
     ModalContainerDiv,
@@ -13,12 +18,12 @@ import {
     ModalInputTime
 } from './CreateTodo.element'
 
-const CreateTodo = () => {
+
+const CreateTodo = ({ isAuth }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [nameObjective, setNameObjective] = useState('')
     const [desObjective, setDesObjective] = useState('')
     const [timeObjective, setTimeObjective] = useState('')
-
     //--Modal
     const showModal = () => {
         setIsModalOpen(true);
@@ -30,7 +35,22 @@ const CreateTodo = () => {
         setIsModalOpen(false);
     };
     //--Modal
+    let navigate = useNavigate()
 
+    //--Create
+    function getTodo() {
+        const todoCollectionRef = collection(db, 'posts')
+        getDocs(todoCollectionRef)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => console.log(error.message))
+    }
+
+    useEffect(() => {
+        getTodo()
+    }, [])
+    //--Create
     return (
         <>
             <ButtonCreate type="primary" onClick={showModal}>
@@ -50,7 +70,7 @@ const CreateTodo = () => {
                     <ModalTextarea onChange={(event) => { setDesObjective(event.target.value) }}></ModalTextarea>
                 </ModalContainerDiv>
                 <ModalContainerDiv>
-                    <ButtonPost>Создать задачу</ButtonPost>
+                    <ButtonPost >Создать задачу</ButtonPost>
                 </ModalContainerDiv>
 
             </Modal>

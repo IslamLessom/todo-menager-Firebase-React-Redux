@@ -8,7 +8,7 @@ import Profile from "./Profile";
 
 
 function ButtonsCreateTodo({ isAuth, signInWithGoogle, signUserOut }) {
-    console.log(signInWithGoogle)
+    
     return (
         <NavbarRegister>
             {!isAuth ? (
@@ -19,7 +19,7 @@ function ButtonsCreateTodo({ isAuth, signInWithGoogle, signUserOut }) {
             ) : (
                 <>
                     {auth.lastNotifiedUid === 'qH0QyYnT8NO3dOwlWiZPMnEEif32' && (
-                        <CreateTodo />
+                        <CreateTodo isAuth={isAuth} />
                     )}
                     <ButtonRegister onClick={signUserOut}>Exit Profile</ButtonRegister>
                     <Profile />

@@ -1,56 +1,24 @@
 import React from 'react'
-import { CardName, CardWork, ContentDiv,CardTime,CardButton } from './Contents.element'
+import {
+    CardName,
+    CardWork,
+    ContentDiv,
+    CardTime,
+    CardButton,
+    ContentGrid
+} from './Contents.element'
+import DescriptionTextTodo from './ModalIcons/DescriptionTextTodo'
 
-function Content() {
-  return (
-    <ContentDiv>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-        <CardWork>
-            <CardName>Уборка</CardName>
-            <CardTime>до 13:00</CardTime>
-            <CardButton>Подробне</CardButton>
-        </CardWork>
-    </ContentDiv>
-  )
+function Content({ index, nameObjective, desObjective, timeObjective }) {
+    return (
+        <ContentDiv>
+            <CardWork key={index}>
+                <CardName>{nameObjective}</CardName>
+                <CardTime>{timeObjective}</CardTime>
+                <DescriptionTextTodo desObjective={desObjective} />
+            </CardWork>
+        </ContentDiv>
+    )
 }
 
 export default Content

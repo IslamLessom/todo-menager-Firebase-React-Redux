@@ -38,18 +38,24 @@ const CreateTodo = ({ isAuth }) => {
     let navigate = useNavigate()
 
     //--Create
-    function getTodo() {
-        const todoCollectionRef = collection(db, 'posts')
-        getDocs(todoCollectionRef)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => console.log(error.message))
-    }
+    const getTodo = async () => {
+        try {
+            const docRef = await addDoc(collection(db, "posts"), {
+                nameObjective,
+                desObjective,
+                timeObjective,
+            });
 
-    useEffect(() => {
-        getTodo()
-    }, [])
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+        //вывод
+        //const querySnapshot = await getDocs(collection(db, "posts"));
+        // querySnapshot.forEach((doc) => {
+        //    console.log(`${doc.id} => ${doc.data()}`);
+        // });
+    }
     //--Create
     return (
         <>
@@ -70,7 +76,7 @@ const CreateTodo = ({ isAuth }) => {
                     <ModalTextarea onChange={(event) => { setDesObjective(event.target.value) }}></ModalTextarea>
                 </ModalContainerDiv>
                 <ModalContainerDiv>
-                    <ButtonPost >Создать задачу</ButtonPost>
+                    <ButtonPost onClick={getTodo} >Создать задачу</ButtonPost>
                 </ModalContainerDiv>
 
             </Modal>

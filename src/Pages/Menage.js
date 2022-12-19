@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+//--firebase
 import { getDocs, collection } from 'firebase/firestore'
-import { auth, db } from '../Fairbase'
+import { db } from '../Fairbase'
+//--firebase
+import Contents from '../Components/Contents'
+import { MenageContent } from "./Menage.element"
 
 function Menage({ isAuth }) {
-  return (
-    <div>
+  const [data, setData] = useState([])
 
-    </div>
+  useEffect(() => {
+    const dbTodo = async () => {
+      const querySnapshot = await getDocs(collection(db, "posts"));
+      setData(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    }
+    dbTodo()
+  }, [])
+
+
+  return (
+    <MenageContent>
+      {data.map((post, index) => {
+        return (
+          <Contents index={index} nameObjective={post.nameObjective} desObjective={post.desObjective} timeObjective={post.timeObjective} />
+        )
+      })}
+    </MenageContent>
   )
 }
 

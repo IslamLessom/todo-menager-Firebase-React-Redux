@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const ContentDiv = styled.div`
-  margin: 40px;
-  display: grid;
-  grid-template-columns: 31% 31% 31%;
+  margin: 10px;
   text-align: center;
   justify-content: center;
 `;
@@ -15,6 +13,7 @@ export const CardWork = styled.div`
   margin-bottom: 30px;
   border-radius: 15px; 
   height: 170px;
+  box-shadow: 2px 2px 2px 1px #0000007d;
 `;
 export const CardName = styled.h1`
   color: #4a7f8b; 

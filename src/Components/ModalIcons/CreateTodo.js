@@ -15,8 +15,38 @@ import {
     ModalLabelNameDescription,
     ModalTextarea,
     ButtonPost,
-    ModalInputTime
+    ModalInputTime,
+    ModalLabelCategories,
+    ModalInputCategories,
+    TreeSelectContainer,
+    TreeSelects,
+    TreeText
 } from './CreateTodo.element'
+
+const treeData = [
+    {
+        value: 'Сотрудники',
+        title: 'Сотрудники',
+        children: [
+            {
+                value: 'Menage',
+                title: 'Menage',
+            },
+            {
+                value: 'Accountant',
+                title: 'Accountant',
+            },
+            {
+                value: 'Consultant',
+                title: 'Consultant',
+            },
+            {
+                value: 'Director',
+                title: 'Director',
+            },
+        ],
+    },
+]
 
 
 const CreateTodo = ({ isAuth }) => {
@@ -24,6 +54,12 @@ const CreateTodo = ({ isAuth }) => {
     const [nameObjective, setNameObjective] = useState('')
     const [desObjective, setDesObjective] = useState('')
     const [timeObjective, setTimeObjective] = useState('')
+    const [value, setValue] = useState('');
+    //TreeSelect
+    const onChange = (newValue) => {
+        setValue(newValue);
+    };
+    //TreeSelect
     //--Modal
     const showModal = () => {
         setIsModalOpen(true);
@@ -44,17 +80,13 @@ const CreateTodo = ({ isAuth }) => {
                 nameObjective,
                 desObjective,
                 timeObjective,
+                value
             });
 
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
             console.error("Error adding document: ", e);
         }
-        //вывод
-        //const querySnapshot = await getDocs(collection(db, "posts"));
-        // querySnapshot.forEach((doc) => {
-        //    console.log(`${doc.id} => ${doc.data()}`);
-        // });
     }
     //--Create
     return (
@@ -72,11 +104,31 @@ const CreateTodo = ({ isAuth }) => {
                     <ModalInputTime type="time" onChange={(event) => { setTimeObjective(event.target.value) }} />
                 </ModalContainerDiv>
                 <ModalContainerDiv>
+                    <TreeSelectContainer>
+                        <TreeText>Выберите сотрудника</TreeText>
+                        <TreeSelects
+                            showSearch
+                            style={{
+                                width: '100%',
+                            }}
+                            value={value}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="Please select"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={onChange}
+                            treeData={treeData} />
+                    </TreeSelectContainer>
+                </ModalContainerDiv>
+                <ModalContainerDiv>
                     <ModalLabelDescription>Полное описание задачи</ModalLabelDescription>
                     <ModalTextarea onChange={(event) => { setDesObjective(event.target.value) }}></ModalTextarea>
                 </ModalContainerDiv>
                 <ModalContainerDiv>
-                    <ButtonPost onClick={getTodo} >Создать задачу</ButtonPost>
+                    <ButtonPost onClick={getTodo}>Создать задачу</ButtonPost>
                 </ModalContainerDiv>
 
             </Modal>

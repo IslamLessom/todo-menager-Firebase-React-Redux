@@ -4,7 +4,15 @@ import { getDocs, collection } from 'firebase/firestore'
 import { db } from '../Fairbase'
 //--firebase
 import Contents from '../Components/Contents'
-import { MenageContent } from "./Menage.element"
+import DescriptionTextTodo from '../Components/ModalIcons/DescriptionTextTodo'
+import {
+  MenageContent,
+  CardButton,
+  CardName,
+  CardTime,
+  CardWork,
+  ContentDiv
+} from "./Menage.element"
 
 function Menage({ isAuth }) {
   const [data, setData] = useState([])
@@ -22,10 +30,18 @@ function Menage({ isAuth }) {
     <MenageContent>
       {data.map((post, index) => {
         return (
-          <Contents index={index} nameObjective={post.nameObjective} desObjective={post.desObjective} timeObjective={post.timeObjective} />
+          post.value === 'Menage' && (
+            <ContentDiv>
+              <CardWork key={post.index}>
+                <CardName>{post.nameObjective}</CardName>
+                <CardTime>{post.timeObjective}</CardTime>
+                <DescriptionTextTodo desObjective={post.desObjective} />
+              </CardWork>
+            </ContentDiv>
+          ) 
         )
       })}
-    </MenageContent>
+    </MenageContent >
   )
 }
 

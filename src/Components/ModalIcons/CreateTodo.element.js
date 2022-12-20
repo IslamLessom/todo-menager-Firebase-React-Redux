@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Button, Modal } from 'antd';
+//ANT-DESIGN
+import { Button,TreeSelect } from 'antd';
 
 export const ButtonCreate = styled(Button)`
     width: 110%;
@@ -63,3 +64,13 @@ export const ModalInputTime = styled.input`
     font-size: 20px;
 `
 
+export const TreeSelectContainer = styled.div``
+export const TreeSelects = styled(TreeSelect)`
+    width: 82% !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 1px !important;
+`
+export const TreeText = styled.p`
+    font-size: 30px;
+`

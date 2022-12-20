@@ -9,7 +9,7 @@ import {
 } from './Contents.element'
 import DescriptionTextTodo from './ModalIcons/DescriptionTextTodo'
 
-function Content({ index, nameObjective, desObjective, timeObjective }) {
+function Content({ index,value, nameObjective, desObjective, timeObjective }) {
     return (
         <ContentDiv>
             <CardWork key={index}>

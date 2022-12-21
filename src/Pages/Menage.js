@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from '../Fairbase'
 //--firebase
-import Contents from '../Components/Contents'
 import DescriptionTextTodo from '../Components/ModalIcons/DescriptionTextTodo'
 import {
   MenageContent,

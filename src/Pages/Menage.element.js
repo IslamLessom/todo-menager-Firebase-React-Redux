@@ -18,7 +18,7 @@ export const CardWork = styled.div`
   margin-right: auto;
   margin-bottom: 30px;
   border-radius: 15px; 
-  height: 170px;
+  height: 200px;
   box-shadow: 2px 2px 2px 1px #0000007d;
 `;
 export const CardName = styled.h1`

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from '../Fairbase'
 //--firebase
-import Contents from '../Components/Contents'
 import DescriptionTextTodo from '../Components/ModalIcons/DescriptionTextTodo'
+import { Taimer } from '../Components/Taimer/Taimer'
 import {
   MenageContent,
   CardButton,
@@ -32,13 +32,13 @@ function Accountant({ isAuth }) {
         return (
           post.value === 'Accountant' && (
             <ContentDiv>
-              <CardWork key={post.index}>
+              <CardWork key={index}>
                 <CardName>{post.nameObjective}</CardName>
-                <CardTime>{post.timeObjective}</CardTime>
+                <CardTime><Taimer timeObjectiveHours={post.timeObjectiveHours} timeObjectiveMinutes={post.timeObjectiveMinutes} timeObjectiveSeconds={post.timeObjectiveSeconds} /></CardTime>
                 <DescriptionTextTodo desObjective={post.desObjective} />
               </CardWork>
             </ContentDiv>
-          ) 
+          )
         )
       })}
     </MenageContent >

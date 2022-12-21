@@ -57,11 +57,12 @@ export const ButtonPost = styled(Button)`
 `
 
 export const ModalInputTime = styled.input`
-    width: 80%;
+    width: 22%;
     margin-left: auto;
     margin-right: auto;
     height: 30px;
     font-size: 20px;
+    text-align: center;
 `
 
 export const TreeSelectContainer = styled.div``
@@ -73,4 +74,16 @@ export const TreeSelects = styled(TreeSelect)`
 `
 export const TreeText = styled.p`
     font-size: 30px;
+`
+
+export const TextHours = styled.p``
+
+export const ContainerDiv = styled.div`
+display: flex;
+`
+
+export const ContainerDivText = styled.div`
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
 `

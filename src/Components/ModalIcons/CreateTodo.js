@@ -20,7 +20,10 @@ import {
     ModalInputCategories,
     TreeSelectContainer,
     TreeSelects,
-    TreeText
+    TreeText,
+    TextHours,
+    ContainerDiv,
+    ContainerDivText
 } from './CreateTodo.element'
 
 const treeData = [
@@ -53,7 +56,9 @@ const CreateTodo = ({ isAuth }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [nameObjective, setNameObjective] = useState('')
     const [desObjective, setDesObjective] = useState('')
-    const [timeObjective, setTimeObjective] = useState('')
+    const [timeObjectiveHours, setTimeObjectiveHours] = useState()
+    const [timeObjectiveMinutes, setTimeObjectiveMinutes] = useState()
+    const [timeObjectiveSeconds, setTimeObjectiveSeconds] = useState()
     const [value, setValue] = useState('');
     //TreeSelect
     const onChange = (newValue) => {
@@ -71,15 +76,15 @@ const CreateTodo = ({ isAuth }) => {
         setIsModalOpen(false);
     };
     //--Modal
-    let navigate = useNavigate()
-
     //--Create
     const getTodo = async () => {
         try {
             const docRef = await addDoc(collection(db, "posts"), {
                 nameObjective,
                 desObjective,
-                timeObjective,
+                timeObjectiveHours,
+                timeObjectiveSeconds,
+                timeObjectiveMinutes,
                 value
             });
 
@@ -101,7 +106,16 @@ const CreateTodo = ({ isAuth }) => {
                 </ModalContainerDiv>
                 <ModalContainerDiv>
                     <ModalLabelNameDescription>Время на выполнение:</ModalLabelNameDescription>
-                    <ModalInputTime type="time" onChange={(event) => { setTimeObjective(event.target.value) }} />
+                    <ContainerDivText>
+                        <TextHours>Часов</TextHours>
+                        <TextHours>Минут</TextHours>
+                        <TextHours>Секунд</TextHours>
+                    </ContainerDivText>
+                    <ContainerDiv>
+                        <ModalInputTime type="number" min="0" max="48" step="1" onChange={(event) => { setTimeObjectiveHours(event.target.value) }} />
+                        <ModalInputTime type="number" min="0" max="60" step="1" onChange={(event) => { setTimeObjectiveMinutes(event.target.value) }} />
+                        <ModalInputTime type="number" min="0" max="60" step="1" onChange={(event) => { setTimeObjectiveSeconds(event.target.value) }} />
+                    </ContainerDiv>
                 </ModalContainerDiv>
                 <ModalContainerDiv>
                     <TreeSelectContainer>

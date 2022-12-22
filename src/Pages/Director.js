@@ -31,7 +31,7 @@ function Director({ isAuth }) {
         return (
           post.value === 'Director' && (
             <ContentDiv>
-              <CardWork key={post.index}>
+              <CardWork key={index}>
                 <CardName>{post.nameObjective}</CardName>
                 <CardTime>{post.timeObjective}</CardTime>
                 <DescriptionTextTodo desObjective={post.desObjective} />

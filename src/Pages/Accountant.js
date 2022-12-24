@@ -4,7 +4,6 @@ import { getDocs, collection } from 'firebase/firestore'
 import { db } from '../Fairbase'
 //--firebase
 import DescriptionTextTodo from '../Components/ModalIcons/DescriptionTextTodo'
-import { Taimer } from '../Components/Taimer/Taimer'
 import {
   MenageContent,
   CardButton,
@@ -14,25 +13,27 @@ import {
   ContentDiv
 } from "./Menage.element"
 
-function Accountant({ isAuth }) {
-  const [data, setData] = useState([])
+import { useDispatch, useSelector } from 'react-redux'
+import { getData } from '../Redux/reducer/todo'
+import { Taimer } from '../Components/Taimer/Taimer'
 
+function Accountant() {
+  const dispatch = useDispatch()
+  const todo = useSelector((s) => s.todo.todo)
   useEffect(() => {
-    const dbTodo = async () => {
-      const querySnapshot = await getDocs(collection(db, "posts"));
-      setData(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    }
-    dbTodo()
+    getDocs(collection(db, 'posts'))
+      .then((res) => dispatch(getData(res.docs.map(el => ({ ...el.data(), id: el.id })))))
   }, [])
 
 
   return (
     <MenageContent>
-      {data.map((post, index) => {
+      {todo.map((post) => {
+        { console.log(post) }
         return (
           post.value === 'Accountant' && (
             <ContentDiv>
-              <CardWork key={index}>
+              <CardWork key={post.id}>
                 <CardName>{post.nameObjective}</CardName>
                 <CardTime><Taimer timeObjectiveHours={post.timeObjectiveHours} timeObjectiveMinutes={post.timeObjectiveMinutes} timeObjectiveSeconds={post.timeObjectiveSeconds} /></CardTime>
                 <DescriptionTextTodo desObjective={post.desObjective} />
